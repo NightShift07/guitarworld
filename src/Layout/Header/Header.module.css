@@ -1,0 +1,44 @@
+/* flaticons */
+@import url('https://cdn-uicons.flaticon.com/3.0.0/uicons-regular-straight/css/uicons-regular-straight.css');
+
+/* Header */
+.header {
+    background-color: #dfdfdf;
+    padding: 1rem;
+    background-image: url('/img/header/header_1920.jpg');
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        nav {
+            display: flex;
+            align-items: center;
+
+            ul {
+                list-style: none;
+                display: flex;
+                gap: 1rem;
+
+                li {
+                    a {
+                        text-decoration: none;
+                        color: #000000;
+                        font-weight: bold;
+
+                        &:hover {
+                            color: #ff0000;
+                            text-decoration: underline;
+                        }
+                    }                
+                }
+            }
+        }
+    }
+}
+
+.logo {
+    height: 50px;
+    margin-right: 1rem;
+}

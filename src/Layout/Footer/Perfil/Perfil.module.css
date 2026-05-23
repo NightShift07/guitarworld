@@ -1,0 +1,50 @@
+.container {
+    border: 1px solid #000000;
+    border-radius: 10px 10px 10px 10px;
+    width: 250px;
+    height: 265px;
+    margin: 10px 10px 10px 10px;
+    background-image: url('/img/footer/ficha.png');
+    display: flex;
+    flex-direction: column;
+    cursor: default;
+    
+    .image{
+        display: flex;
+        justify-content: right;
+        margin: 10px 10px 10px 10px;
+
+        img {
+            border: 1px solid #000000;
+            width: 100px;
+            height: 100px;
+        }
+    }
+    
+    .pizq{
+        text-align: left;
+        text-decoration: underline;
+        font-weight: bold;
+        font-size: 13px;
+        margin: 8px 0px 0px 50px;
+    }
+
+    .name {
+        text-align: right;
+        font-size: 20px;
+        margin: -2px 10px -9px 0px;
+    }
+
+    .cargo {
+        text-align: right;
+        font-size: 17px;
+        margin: 1px 10px -9px 0px;
+    }
+
+    .mail {
+        text-align: right;
+        font-size: 15px;
+        margin: 3px 10px 0px 0px;
+    }
+
+}
