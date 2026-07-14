@@ -1,52 +1,37 @@
-import react, {useState, useEffect } from 'react';
+import react, { useState, useEffect } from 'react';
+import { getFirestore, collection, getDocs} from 'firebase/firestore';
+import { db } from '../../Firebase/Config';
 
 import Item from './Item';
 
 
 function ItemContainer() {
-    
     const [articulos, setArticulos] = useState([]);
-    const [error, setError] = useState(null);
-    const [carga, setCarga] = useState(true);
 
     useEffect(() => {
-        fetch('/api/articulos.json')
-            .then((respuesta) => {
-                if (!respuesta.ok) {
-                    throw new Error('Error al cargar el archivo');
+        const prodList = collection(db, "articulos");
+        getDocs(prodList)
+            .then((resp) => {
+                if (!resp.empty) {
+                    setArticulos(
+                        resp.docs.map((doc) => {
+                            return { ...doc.data() }
+                        })
+                    )
+                } else {
+                    console.log("Producto no encontrado en nuestro catalogo.");
                 }
-                return respuesta.json();
-            })
-            .then((datos) => {
-                setArticulos(datos);
             })
             .catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setCarga(false);
+                console.error("Error al cargar los articulos:", error);
             });
     }, []);
 
-    if (carga) {
-        return (
-            <div>
-                <p>Cargando lista de productos...</p>
-                <p>Por favor, aguarde un momento...</p>
-            </div>
-        );
-    }
-    
-    if (error) {
-        return (
-            <div>
-                <p>Error al cargar el archivo.</p>
-                <p>Error: {error}</p>
-            </div>
-        )
+    if (!articulos) {
+        return <h2>Cargando detalles de los articulos...</h2>;
     }
 
-    return(
+    return (
         <div className="container">
             <div className='itemLista'>
                 {articulos.map((articulo) => (

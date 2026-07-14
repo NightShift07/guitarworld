@@ -11,9 +11,9 @@ function Item(art) {
             <div className={styles.itemArticulo}>
                 <Link to={`/catalogo/${art.id}`}>
                     <div className={styles.detArticulo}>
-                        <img src={art.image} alt={art.nombre} />
+                        <img src={art.imagen} alt={art.modelo} />
                         <div className={styles.infoArticulo}>
-                            <p className={styles.titulo}>{art.nombre}</p>
+                            <p className={styles.titulo}>{art.modelo}</p>
                             <p className={styles.valor}>$ {art.precio.toLocaleString('es-AR')}</p>
                             <p className={styles.stock}>{art.stock} articulos disponibles</p>
                         </div>
