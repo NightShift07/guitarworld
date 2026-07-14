@@ -4,14 +4,6 @@
     text-align: center;
     background-image: url('/img/footer/footer.png');
 
-    .tarjetas{
-        display: flex;
-        justify-content: center;
-        padding: 5px 5px 5px 5px;
-        align-items: center;
-        flex-wrap: wrap;
-    }
-
     .pie {
         p {
             font-size: 13px;

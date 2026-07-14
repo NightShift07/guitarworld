@@ -21,17 +21,15 @@
                 display: flex;
                 gap: 1rem;
 
-                li {
-                    a {
-                        text-decoration: none;
-                        color: #000000;
-                        font-weight: bold;
+                .navLi, a {
+                    text-decoration: none;
+                    color: #000000;
+                    font-weight: bold;
 
-                        &:hover {
-                            color: #ff0000;
-                            text-decoration: underline;
-                        }
-                    }                
+                    a:hover {
+                        color: #ff0000;
+                        text-decoration: underline;
+                    }
                 }
             }
         }

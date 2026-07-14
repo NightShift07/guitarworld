@@ -40,8 +40,8 @@ function Cart() {
                     <tbody>
                         {cart.map((cartItem) => (
                             <tr key={cartItem.id} className={styles.cartItem}>
-                                <td className={styles.cartImg}><img src={cartItem.image} alt={cartItem.nombre} /></td>
-                                <td className={styles.cartName}>{cartItem.nombre}</td>
+                                <td className={styles.cartImg}><img src={cartItem.imagen} alt={cartItem.modelo} /></td>
+                                <td className={styles.cartName}>{cartItem.modelo}</td>
                                 <td className={styles.cartCant}>{cartItem.cant}</td>
                                 <td className={styles.cartValor}>${cartItem.precio.toLocaleString('es-AR')}</td>
                                 <td className={styles.cartSub}>${(cartItem.precio * cartItem.cant).toLocaleString('es-AR')}</td>

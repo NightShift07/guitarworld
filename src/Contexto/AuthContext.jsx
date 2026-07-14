@@ -37,11 +37,10 @@ export const AuthProvider = ({ children }) => {
                 const userDocRef = doc(db, "users", currentUser.uid);
                 const userDocSnap = await getDoc(userDocRef);
                 if (userDocSnap.exists() && userDocSnap.data().nivel === 'admin') {
-                    setUser({ ...currentUser, nivel: 'admin' });
+                    setUser({ ...currentUser, nivel: 'admin', nick: userDocSnap.data().nick });
                 } else {
-                    setUser({ ...currentUser, nivel: 'user' });
+                    setUser({ ...currentUser, nivel: 'user', nick: userDocSnap.data().nick });
                 }
-                setUser({ ...currentUser, nick: userDocSnap.data().nick })
             } else {
                 setUser(null);
             }

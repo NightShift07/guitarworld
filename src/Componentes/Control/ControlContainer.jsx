@@ -55,7 +55,7 @@ const ControlContainer = () => {
 
         try {
             if (imgFile) {
-                console.log("Subiendo imagen a Imgbb...");
+                console.log('Subiendo imagen...');
 
                 const respImgbb = await
                     fetch(`https://api.imgbb.com/1/upload?key=${apiKeyImgbb}`, { method: 'POST', body: formData, });
@@ -63,22 +63,21 @@ const ControlContainer = () => {
                 const datImgbb = await respImgbb.json();
 
                 if (datImgbb.success) {
-                    console.log("Imagen subida con éxito. URL:", datImgbb.data.url);
+                    console.log('Imagen subida con éxito.');
                     dirImg = datImgbb.data.url;
                 } else {
-                    throw new Error('La subida de la imagen a Imgbb falló.');
-                    alert("Hubo un error al subir la imagen. Por favor, intenta nuevamente.");
+                    throw new Error('La subida de la imagen falló.');
+                    alert('Hubo un error al subir la imagen. Por favor, intenta nuevamente.');
                 }
             }
 
             const fullArt = { ...datosArt, imagen: dirImg };
-            console.log('Enviando informacion a Firebase: ', fullArt);
+            console.log('Guardando informacion');
 
             const dbArt = collection(db, "articulos");
             
             if(sttUpdating){
                 const docArtRef = doc(db, "articulos", updatingArt.docId);
-                console.log("fullArt:", fullArt);
 
                 delete fullArt.docId;
                 await updateDoc(docArtRef, fullArt);
@@ -94,7 +93,7 @@ const ControlContainer = () => {
             setImgFile(null);
             setUpdatingArt(null);
         } catch (error) {
-            console.error("Error en el proceso de envío:", error);
+            console.error('Error en el proceso de envío:', error);
         }
 
         finally {
@@ -116,13 +115,13 @@ const ControlContainer = () => {
     };
 
     const fncArtDel = async (id) => {
-        const confirmacion = window.confirm("¿Está seguro de que desea eliminar este producto ? ");
+        const confirmacion = window.confirm("¿Desea eliminar este articulo ?");
         if (confirmacion) {
             const docRef = doc(db, "articulos", id);
             await deleteDoc(docRef);
 
             setArticulos(articulos.filter(prod => prod.id !== id));
-            alert("Producto eliminado.");
+            alert("Articulo eliminado.");
         }
     };
 
@@ -143,7 +142,6 @@ const ControlContainer = () => {
                 {articulos.map((prod) => (
                     <li key={prod.id}>
                         -- {prod.id} - {prod.modelo} - ${prod.precio}
-                        {/*acá agregamos los botones de acción */}
                         <button onClick={() => fncArtUpd(prod)} >Actualizar</button>
                         <button onClick={() => fncArtDel(prod.id)} >Eliminar</button>
                     </li>

@@ -21,7 +21,7 @@ function Contador(art) {
     const handleAddToCart = () => {
         if (cant > 0) {
             addToCart(artic, cant);
-            alert(`Se ha agregado ${art.nombre} al carrito.`);
+            alert(`Se ha agregado ${art.modelo} al carrito.`);
         };
     };
 

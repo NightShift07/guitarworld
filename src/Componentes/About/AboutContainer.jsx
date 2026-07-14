@@ -1,4 +1,7 @@
 import { useState, useEffect } from 'react';
+import { doc, collection, getDocs } from "firebase/firestore";
+import { db } from '../../firebase/config';
+import styles from './About.module.css';
 import About from './About';
 
 function AboutContainer() {
@@ -8,23 +11,22 @@ function AboutContainer() {
     const [carga, setCarga] = useState(true);
 
     useEffect(() => {
-        fetch('/api/equipo.json')
-            .then((respuesta) => {
-                if (!respuesta.ok) {
-                    throw new Error('Error al cargar el archivo');
+        const perfList = collection(db, "equipo");
+        getDocs(perfList)
+            .then((resp) => {
+                if (!resp.empty) {
+                    setPerfiles( resp.docs.map((doc) => { return { ...doc.data() }}));
                 }
-                return respuesta.json();
-            })
-            .then((datos) => {
-                setPerfiles(datos);
             })
             .catch((error) => {
-                setError(error.message);
-            })
-            .finally(() => {
-                setCarga(false);
+                console.error("Error al cargar los perfiles:", error);
             });
+            setCarga(false);
     }, []);
+
+    if (!perfiles) {
+        return <h2>Cargando detalles de los perfiles...</h2>;
+    }
 
     if (carga) {
         return (
@@ -45,11 +47,11 @@ function AboutContainer() {
     }
 
     return (
-        <>
+        <div className={styles.tarjetas}>
             {perfiles.map((Aboutp) => (
                 <About key={Aboutp.id} img={Aboutp.img} name={Aboutp.nombre} cargo={Aboutp.cargo} mail={Aboutp.mail} />
             ))}
-        </>
+        </div>
     );
 }
 

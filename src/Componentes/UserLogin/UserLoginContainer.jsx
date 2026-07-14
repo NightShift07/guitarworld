@@ -1,8 +1,9 @@
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from 'react-router-dom';
 
-const LoginContainer = () => {
+const UserLoginContainer = () => {
 
     const [mail, setMail] = useState("");
     const [pass, setPass] = useState("");
@@ -35,8 +36,10 @@ const LoginContainer = () => {
                 <input type="password" placeholder="Contraseña" value={pass} onChange={(e) => setPass(e.target.value)} />
                 <button type="submit">Ingresar</button>
             </form>
+            <br />
+            <p>¿No tenés una cuenta? <Link to="/register">Registrate aquí</Link></p>
         </div>
     );
 };
 
-export default LoginContainer;
+export default UserLoginContainer;
