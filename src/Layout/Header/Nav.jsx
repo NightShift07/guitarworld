@@ -14,6 +14,7 @@ function Nav() {
         { icono: 'fi fi-rs-shop', nombre: 'Catalogo', link: '/catalogo' },
         { icono: 'fi fi-rs-users-alt', nombre: 'Nosotros', link:'/about-us' },
         { icono: 'fi fi-rs-shopping-cart-check', nombre: 'Carrito', link: '/carrito' },
+        ...(user ? [user.nivel === 'admin' && { icono: 'fi fi-rs-ticket', nombre: 'Cupones', link: '/cupones' }]:[]),
         ...(user ? [user.nivel === 'admin' && { icono: 'fi fi-rs-settings-sliders', nombre: 'Panel de Control', link: '/control' }]
             :[{icono: 'fi fi-rs-user', nombre: 'Ingresar', link: '/login'}])
     ]

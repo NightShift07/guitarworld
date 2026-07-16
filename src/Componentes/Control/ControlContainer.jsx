@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
 import { collection, getDocs, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore";
 
-//import FormArtContainer from '../FormArt/FormArtContainer';
-import FormArt from './FormArt';
+import { FormArt, ListArt } from './Articulos';
 
 
 const ControlContainer = () => {
@@ -21,11 +20,8 @@ const ControlContainer = () => {
     };
 
     const [datosArt, setDatosArt] = useState(initForm);
-
     const [imgFile, setImgFile] = useState(null);
-
     const [carga, setCarga] = useState(false);
-
     const [updatingArt, setUpdatingArt] = useState(null);
 
     const fncUpdChg = (evento) => {
@@ -117,11 +113,15 @@ const ControlContainer = () => {
     const fncArtDel = async (id) => {
         const confirmacion = window.confirm("¿Desea eliminar este articulo ?");
         if (confirmacion) {
-            const docRef = doc(db, "articulos", id);
-            await deleteDoc(docRef);
+            try{
+                const docRef = doc(db, "articulos", id);
+                await deleteDoc(docRef);
 
-            setArticulos(articulos.filter(prod => prod.id !== id));
-            alert("Articulo eliminado.");
+                await fncLoaddArt;
+                alert("Articulo eliminado.");
+            } catch (error) {
+                console.error("Error al eliminar el articulo:", error);
+            }
         }
     };
 
@@ -133,21 +133,10 @@ const ControlContainer = () => {
 
     return (
         <div>
-            <h2>Gestión de Productos</h2>
-            <hr />
             <FormArt datosArt={datosArt} fncUpdChg={fncUpdChg} fncUpdSnd={fncUpdSnd} fncImgChg={fncImgChg} carga={carga} sttUpdating={sttUpdating} />
-            <hr />
-            <h3>Lista de Productos</h3>
-            <ul>
-                {articulos.map((prod) => (
-                    <li key={prod.id}>
-                        -- {prod.id} - {prod.modelo} - ${prod.precio}
-                        <button onClick={() => fncArtUpd(prod)} >Actualizar</button>
-                        <button onClick={() => fncArtDel(prod.id)} >Eliminar</button>
-                    </li>
-                ))}
-            </ul>
+            <ListArt articulos={articulos} fncArtUpd={fncArtUpd} fncArtDel={fncArtDel} />
         </div>
     );
 };
+
 export default ControlContainer;

@@ -38,15 +38,17 @@ function Cart() {
                         </tr>
                     </thead>
                     <tbody>
-                        {cart.map((cartItem) => (
-                            <tr key={cartItem.id} className={styles.cartItem}>
-                                <td className={styles.cartImg}><img src={cartItem.imagen} alt={cartItem.modelo} /></td>
-                                <td className={styles.cartName}>{cartItem.modelo}</td>
-                                <td className={styles.cartCant}>{cartItem.cant}</td>
-                                <td className={styles.cartValor}>${cartItem.precio.toLocaleString('es-AR')}</td>
-                                <td className={styles.cartSub}>${(cartItem.precio * cartItem.cant).toLocaleString('es-AR')}</td>
-                            </tr>
-                        ))}
+                        {cart.map((cartItem) => {
+                            return (
+                                <tr key={cartItem.id} className={styles.cartItem}>
+                                    <td className={styles.cartImg}><img src={cartItem.imagen} alt={cartItem.modelo} /></td>
+                                    <td className={styles.cartName}>{cartItem.modelo}</td>
+                                    <td className={styles.cartCant}>{cartItem.cant}</td>
+                                    <td className={styles.cartValor}>${cartItem.precio.toLocaleString('es-AR')}</td>
+                                    <td className={styles.cartSub}>${(cartItem.precio * cartItem.cant).toLocaleString('es-AR')}</td>
+                                </tr>
+                            )
+                        })}
                         <tr className={styles.cartTotal}>
                             <td className={styles.cartTotTitle} colSpan="4">Total a pagar:</td>
                             <td className={styles.cartTotalVal}>${getCartTot().toLocaleString('es-AR')}</td>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '../../Contexto/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const Protection = ({ children, lvlAuth }) => {
     const { user, loading } = useAuth();
@@ -14,7 +14,7 @@ const Protection = ({ children, lvlAuth }) => {
         return <Navigate to="/" replace />;
     }
 
-    return <>{children}</>;
+    return <Outlet />; 
 };
 
 export default Protection;

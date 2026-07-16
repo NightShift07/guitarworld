@@ -35,12 +35,18 @@ export const CartProvider = ({ children }) => {
     const getCartCant = () => {
         return cart.reduce((acc, cartItem) => acc + cartItem.cant, 0);
     };
+
+    const getItemCant = (id) => {
+        const item = cart.find(item => item.id === id);
+        return item ? item.cant : 0;
+    };
+
     const getCartTot = () => {
         return cart.reduce((acc, cartItem) => acc + cartItem.precio * cartItem.cant, 0);
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, clearCart, getCartCant, getCartTot }}>
+        <CartContext.Provider value={{ cart, addToCart, clearCart, getCartCant, getItemCant, getCartTot }}>
             {children}
         </CartContext.Provider>
     );

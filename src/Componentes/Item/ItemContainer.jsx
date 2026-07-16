@@ -11,7 +11,7 @@ function ItemContainer() {
         getDocs(prodList)
             .then((resp) => {
                 if (!resp.empty) {
-                    setArticulos( resp.docs.map((doc) => { return { ...doc.data() }}))
+                    setArticulos( resp.docs.map((doc) => { return { ...doc.data(), docId: doc.id }}))
                 } else {
                     console.log("Producto no encontrado en nuestro catalogo.");
                 }
@@ -28,9 +28,11 @@ function ItemContainer() {
     return (
         <div className="container">
             <div className='itemLista'>
-                {articulos.map((articulo) => (
-                    <Item key={articulo.id} {...articulo} />
-                ))}
+                {articulos.map((articulo) => {
+                    return(
+                        <Item key={articulo.id} {...articulo} />
+                    )
+                })}
             </div>
         </div>
     )
