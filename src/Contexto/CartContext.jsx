@@ -5,7 +5,7 @@ export const CartContext = createContext();
 export const useCart = () => {
 
     const context = useContext(CartContext);
-    
+
     if (!context) {
         throw new Error('useCart debe ser usado dentro de un CartProvider');
     }
@@ -13,20 +13,42 @@ export const useCart = () => {
 }
 
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState ([]);
+    const [cart, setCart] = useState([]);
 
     const addToCart = (art, cant) => {
         const itemInCart = cart.find(item => item.id === art.id);
         if (itemInCart) {
             const updCart = cart.map(item =>
                 item.id === art.id
-                ? { ...item, cant: item.cant + cant }
-                : item
+                    ? (item.cant + cant <= item.stock)
+                        ? { ...item, cant: item.cant + cant }
+                        : item
+                    : item
             );
             setCart(updCart);
         } else {
             setCart(prevCart => [...prevCart, { ...art, cant }]);
         }
+    };
+
+    const delFromCart = (art, cant) => {
+        const itemInCart = cart.find(item => item.id === art.id);
+        if (itemInCart) {
+            const updCart = cart.map(item =>
+                item.id === art.id
+                    ? (item.cant - cant > 0)
+                        ? { ...item, cant: item.cant - cant }
+                        : { ...item, cant: 0 }
+                    : item
+            ).filter(item => item.cant > 0);
+            setCart(updCart);
+        } else {
+            setCart(prevCart => [...prevCart, { ...art, cant }]);
+        }
+    };
+
+    const delArt = (id) => {
+        setCart(prevCart => prevCart.filter(item => item.id !== id));
     };
 
     const clearCart = () => {
@@ -46,7 +68,7 @@ export const CartProvider = ({ children }) => {
     };
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, clearCart, getCartCant, getItemCant, getCartTot }}>
+        <CartContext.Provider value={{ cart, addToCart, delFromCart, delArt, clearCart, getCartCant, getItemCant, getCartTot }}>
             {children}
         </CartContext.Provider>
     );
