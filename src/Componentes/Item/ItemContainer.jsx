@@ -1,5 +1,5 @@
 import react, { useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs} from 'firebase/firestore';
+import { collection, getDocs, query, orderBy} from 'firebase/firestore';
 import { db } from '../../Firebase/Config';
 import Item from './Item';
 
@@ -7,7 +7,7 @@ function ItemContainer() {
     const [articulos, setArticulos] = useState([]);
 
     useEffect(() => {
-        const prodList = collection(db, "articulos");
+        const prodList = query(collection(db, "articulos"),orderBy("id","asc"));
         getDocs(prodList)
             .then((resp) => {
                 if (!resp.empty) {

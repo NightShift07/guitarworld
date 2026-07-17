@@ -1,10 +1,7 @@
-/*estilos*/
 import './App.css';
 
-/*react*/
 import { Routes, Route } from 'react-router-dom';
 
-/*componentes*/
 import Layout from './Layout/Layout';
 
 import Protection from './Componentes/Protection/Protection';
