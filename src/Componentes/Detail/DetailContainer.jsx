@@ -32,8 +32,16 @@ const DetailContainer = () => {
     }, [id]);
 
     if (!articulo) {
-        return <h2>Cargando detalles del articulo...</h2>;
-    }
+        return (
+            <>
+                <div className="container">
+                    <div className='detailLista'>
+                        <h2>Cargando detalles del articulo...</h2>
+                    </div>
+                </div>
+            </>
+        )
+    };
 
     return (
         <>

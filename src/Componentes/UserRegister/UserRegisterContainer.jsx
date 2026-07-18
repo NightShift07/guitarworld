@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAuth, createUserWithEmailAndPassword} from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore'
 import { db } from '../../firebase/config';
+import UserRegister from './UserRegister';
 
 const UserRegisterContainer = () => {
     const [error, setError] = useState(null);
@@ -10,7 +11,6 @@ const UserRegisterContainer = () => {
     const navigate = useNavigate();
     
     const auth = getAuth();
-    
     
     const initUserAuth = {
             mail: '',
@@ -72,25 +72,10 @@ const UserRegisterContainer = () => {
     };
 
     return (
-        <div className="auth-container">
-            <h2>Crear una nueva cuenta</h2>
-            <form onSubmit={fncSndReg}>
-                <div className="form-group">
-                    <label>Nombre de Usuario</label>
-                    <input name="nick" type="text" value={datosUserDb.nick} onChange={fncUpdChg} required />
-                </div>
-                <div className="form-group">
-                    <label>Correo Electrónico</label>
-                    <input name="mail" type="email" value={datosUserAuth.mail} onChange={fncUpdChg} required />
-                </div>
-                <div className="form-group">
-                    <label>Contraseña</label>
-                    <input name="pass" type="password" value={datosUserAuth.pass} onChange={fncUpdChg} required placeholder="Mínimo 6 caracteres" />
-                </div>
-                {error && <p className="error-message">{error}</p>}
-                <button type="submit">Registrarse</button>
-            </form>
-        </div>
+        <>
+            <UserRegister error={error} fncSndReg={fncSndReg} fncUpdChg={fncUpdChg} datosUserDb={datosUserDb} datosUserAuth={datosUserAuth} />
+        </>
     );
 };
+
 export default UserRegisterContainer;

@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import styles from './Cupones.module.css';
 
 export function FormCupones({ datosDesc, fncUpdSnd, fncDescChg }) {
-
     return (
         <div>
             <div>
