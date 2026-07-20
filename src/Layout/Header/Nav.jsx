@@ -11,11 +11,10 @@ function Nav() {
 
     const menuItems = [
         { icono: 'fi fi-rs-home-location-alt', nombre: 'Inicio', link: '/' },
-        { icono: 'fi fi-rs-shop', nombre: 'Catalogo', link: '/catalogo' },
+        { icono: 'fi fi-rs-catalog', nombre: 'Catalogo', link: '/catalogo' },
         { icono: 'fi fi-rs-users-alt', nombre: 'Nosotros', link:'/about-us' },
         { icono: 'fi fi-rs-shopping-cart-check', nombre: 'Carrito', link: '/carrito' },
-        ...(user ? [user.nivel === 'admin' && { icono: 'fi fi-rs-ticket', nombre: 'Cupones', link: '/cupones' }]:[]),
-        ...(user ? [user.nivel === 'admin' && { icono: 'fi fi-rs-settings-sliders', nombre: 'Panel de Control', link: '/control' }]
+        ...(user ? [user.nivel === 'admin' && { icono: 'fi fi-rs-settings-sliders', nombre: 'Panel de Control', link: '/panel' }]
             :[{icono: 'fi fi-rs-user', nombre: 'Ingresar', link: '/login'}])
     ]
     
@@ -27,7 +26,7 @@ function Nav() {
                     if (menu.nombre != 'Carrito') 
                         return <li className={styles.navLi} key={id}><Link to={menu.link}><i className={menu.icono}></i> - {menu.nombre}</Link></li>
                     if (menu.nombre === 'Carrito')
-                        return <li className={styles.navLi} key={id}><Link to={menu.link}><i className={menu.icono}></i> - {menu.nombre} - ({totItems})</Link></li>
+                        return <li className={styles.navLi} key={id}><Link to={menu.link}><i className={menu.icono}></i> - {menu.nombre}{totItems > 0 && ` - (${totItems})`}</Link></li>
                 })}
                 {user && (
                     <>

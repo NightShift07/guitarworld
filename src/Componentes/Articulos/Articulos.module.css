@@ -1,4 +1,4 @@
-.cupContainer {
+.artContainer {
     display: flex;
     flex-direction: column;
     border: 1px solid #000000;
@@ -9,7 +9,7 @@
     width: 382px;
 }
 
-.cupGroup {
+.artGroup {
     border: 1px solid #000000;
     border-radius: 10px 10px 10px 10px;
     margin: 5px 5px 5px 5px;

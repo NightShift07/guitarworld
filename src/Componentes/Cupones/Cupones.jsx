@@ -1,17 +1,23 @@
 import { useParams } from "react-router-dom";
 import styles from './Cupones.module.css';
 
-export function FormCupones({ datosDesc, fncUpdSnd, fncDescChg }) {
+export function FormCupones({ datosDesc, fncUpdSnd, fncDescChg, sttUpdating }) {
     return (
-        <div>
-            <div>
-                <h2>Administración de Cupones</h2>
-            </div>
+        <div className={styles.cupGroup}>
             <div>
                 <form onSubmit={fncUpdSnd}>
-                    <input required name="name" type="text" placeholder="Codigo" value={datosDesc.name} onChange={fncDescChg} />
-                    <input required name="desc" type="number" placeholder="Descuento" min="1" max="100" value={datosDesc.desc} onChange={fncDescChg} />
-                    <button type="submit">Crear Cupón</button>
+                    <h3>{sttUpdating ? "Actualizar cupon:" : "Agregar nuevo cupon:"}</h3>
+                    <div className={styles.artFrmItem}>
+                        <label htmlFor="name" >Codigo de descuento:</label>
+                        <input required name="name" type="text" placeholder="Codigo" value={datosDesc.name} onChange={fncDescChg} />
+                    </div>
+                    <div className={styles.artFrmItem}>
+                        <label htmlFor="desc">Porcentaje de descuento:</label>
+                        <input required name="desc" type="number" placeholder="Descuento" min="1" max="100" value={datosDesc.desc} onChange={fncDescChg} />
+                    </div>
+                    <div>
+                        <button type="submit">{sttUpdating ? "Actualizar cupon" : "Crear cupon"}</button>
+                    </div >
                 </form>
             </div>
         </div>
@@ -20,7 +26,7 @@ export function FormCupones({ datosDesc, fncUpdSnd, fncDescChg }) {
 
 export function ListCupones({ cupones, fncDescUpd, fncDescDel }) {
     return (
-        <div>
+        <div className={styles.cupGroup}>
             <div>
                 <h3>Listado de Cupones</h3>
             </div>
@@ -28,7 +34,7 @@ export function ListCupones({ cupones, fncDescUpd, fncDescDel }) {
                 <ul>
                     {cupones.map((cupon) => (
                         <li key={cupon.docId}>
-                            {cupon.docId} - {cupon.name} - ${cupon.desc}%
+                            {cupon.name} - ${cupon.desc}%
                             <button onClick={() => fncDescUpd(cupon)} >Modificar</button>
                             <button onClick={() => fncDescDel(cupon.docId)} >Eliminar</button>
                         </li>

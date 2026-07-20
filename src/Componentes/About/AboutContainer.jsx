@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { doc, collection, getDocs } from "firebase/firestore";
 import { db } from '../../firebase/config';
 import styles from './About.module.css';
-import About from './About';
+import { About, AboutCarga } from './About';
 
 function AboutContainer() {
 
@@ -24,22 +24,17 @@ function AboutContainer() {
             setCarga(false);
     }, []);
 
-    if (!perfiles) {
-        return <h2>Cargando detalles de los perfiles...</h2>;
-    }
-
     if (carga) {
         return (
-            <div>
-                <p>Cargando perfiles del equipo...</p>
-                <p>Por favor, aguarde un momento...</p>
+            <div className={styles.AboutContainer}>
+                <AboutCarga />
             </div>
         );
     }
     
     if (error) {
         return (
-            <div>
+            <div className={styles.AboutContainer}>
                 <p>Error al cargar el archivo.</p>
                 <p>Error: {error}</p>
             </div>
@@ -47,7 +42,7 @@ function AboutContainer() {
     }
 
     return (
-        <div className={styles.tarjetas}>
+        <div className={styles.AboutContainer}>
             {perfiles.map((Aboutp) => (
                 <About key={Aboutp.id} img={Aboutp.img} name={Aboutp.nombre} cargo={Aboutp.cargo} mail={Aboutp.mail} />
             ))}

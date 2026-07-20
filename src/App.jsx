@@ -10,8 +10,9 @@ import ItemContainer from './Componentes/Item/ItemContainer';
 import DetailContainer from './Componentes/Detail/DetailContainer';
 import AboutContainer from './Componentes/About/AboutContainer';
 import Cart from './Componentes/Cart/Cart';
-import CuponesContainer from './Componentes/Cupones/CuponesContainer';
-import ControlContainer from './Componentes/Control/ControlContainer';
+import ControlPanel from './Componentes/ControlPanel/ControlPanel';
+//import CuponesContainer from './Componentes/Cupones/CuponesContainer';
+//import ControlContainer from './Componentes/Control/ControlContainer';
 import UserLoginContainer from './Componentes/UserLogin/UserLoginContainer';
 import UserRegisterContainer from './Componentes/UserRegister/UserRegisterContainer';
 
@@ -25,8 +26,11 @@ function App() {
                 <Route path='/about-us' element={<AboutContainer />} />
                 <Route path='/carrito' element={<Cart />} />
                 <Route element={<Protection lvlAuth={["admin"]} />}>
-                    <Route path='/cupones' element={<CuponesContainer />} />
-                    <Route path='/control' element={<ControlContainer />} />
+                    {//<Route path='/cupones' element={<CuponesContainer />} />
+}
+                    {//<Route path='/control' element={<ControlContainer />} />
+}
+                    <Route path='/panel' element={<ControlPanel />} />
                 </Route>
                 <Route path='/login' element={<UserLoginContainer />} />
                 <Route path='/register' element={<UserRegisterContainer />} />

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../../firebase/config";
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { FormCupones, ListCupones } from "./Cupones";
+import styles from './Cupones.module.css';
 
 const CuponesContainer = () => {
 
@@ -109,8 +110,11 @@ const CuponesContainer = () => {
     }, []);
 
     return (
-        <div>
-            <FormCupones datosDesc={datosDesc} fncUpdSnd={fncUpdSnd} fncDescChg={fncDescChg} />
+        <div className={styles.cupContainer} >
+            <div>
+                <h2>Gestion de Cupones</h2>
+            </div>
+            <FormCupones datosDesc={datosDesc} fncUpdSnd={fncUpdSnd} fncDescChg={fncDescChg} sttUpdating={sttUpdating} />
             <ListCupones cupones={cupones} fncDescUpd={fncDescUpd} fncDescDel={fncDescDel} />
         </div>
     );

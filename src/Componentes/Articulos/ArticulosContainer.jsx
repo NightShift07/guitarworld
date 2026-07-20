@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { db } from '../../firebase/config';
 import { collection, getDocs, deleteDoc, doc, addDoc, updateDoc } from "firebase/firestore";
-
 import { FormArt, ListArt } from './Articulos';
+import styles from './Articulos.module.css';
 
-
-const ControlContainer = () => {
+const ArticulosContainer = () => {
     const [articulos, setArticulos] = useState([]);
 
     const initForm = {
@@ -125,6 +124,12 @@ const ControlContainer = () => {
         }
     };
 
+    const limitTxt = (txt, cant) => {
+        return txt.length > cant
+            ? txt.slice(0, cant) + "..."
+            : txt;
+    };
+
     const sttUpdating = updatingArt !== null;
 
     useEffect(() => {
@@ -132,11 +137,14 @@ const ControlContainer = () => {
     }, []);
 
     return (
-        <div>
+        <div className={styles.artContainer} >
+            <div>
+                <h2>Gestión de Productos</h2>
+            </div>
             <FormArt datosArt={datosArt} fncUpdChg={fncUpdChg} fncUpdSnd={fncUpdSnd} fncImgChg={fncImgChg} carga={carga} sttUpdating={sttUpdating} />
-            <ListArt articulos={articulos} fncArtUpd={fncArtUpd} fncArtDel={fncArtDel} />
+            <ListArt articulos={articulos} fncArtUpd={fncArtUpd} fncArtDel={fncArtDel} limitTxt={limitTxt} />
         </div>
     );
 };
 
-export default ControlContainer;
+export default ArticulosContainer;

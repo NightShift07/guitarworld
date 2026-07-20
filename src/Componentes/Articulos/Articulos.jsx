@@ -3,42 +3,39 @@ import styles from './Articulos.module.css'
 
 export function FormArt({ datosArt, fncUpdChg, fncUpdSnd, fncImgChg, carga, sttUpdating }) {
     return (
-        <div>
-            <div>
-                <h2>Gestión de Productos</h2>
-            </div>
+        <div className={styles.artGroup} >
             <div>
                 <form className={styles.frmArt} onSubmit={fncUpdSnd}>
                     <h3>{sttUpdating ? "Actualizar articulo:" : "Agregar nuevo articulo:"}</h3>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblId" id="lblMarca" htmlFor="id">Id:</label>
                         <input type="number" name="id" id="id" placeholder="Ingrese el Id" value={datosArt.id} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblMarca" id="lblMarca" htmlFor="marca">Marca:</label>
                         <input type="text" name="marca" id="marca" placeholder="Ingrese la marca" value={datosArt.marca} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblModelo" id="lblModelo" htmlFor="modelo">Modelo:</label>
                         <input type="text" name="modelo" id="modelo" placeholder="Ingrese el modelo" value={datosArt.modelo} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblDesc" id="lblDesc" htmlFor="descripcion">Descripcion:</label>
                         <input type="textarea" name="descripcion" id="descripcion" placeholder="Ingrese una descripcion" value={datosArt.descripcion} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblPrecio" id="lblPrecio" htmlFor="precio">Precio:</label>
                         <input type="number" name="precio" id="precio" placeholder="Ingrese el precio" value={datosArt.precio} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblCat" id="lblCat" htmlFor="categoria">Categoria:</label>
                         <input list="text" name="categoria" id="categoria" placeholder="Ingrese la categoria" value={datosArt.categoria} onChange={fncUpdChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblImagen" id="lblImagen" htmlFor="imagen">Imagen:</label>
                         <input type="file" name="imagen" id="imagen" placeholde="Seleccione una imagen" onChange={fncImgChg} />
                     </div>
-                    <div>
+                    <div className={styles.artFrmItem}>
                         <label name="lblStock" id="lblStock" htmlFor="stock">Stock:</label>
                         <input type="number" name="stock" id="stock" placeholder="Ingrese el stock" value={datosArt.stock} onChange={fncUpdChg} />
                     </div>
@@ -49,9 +46,9 @@ export function FormArt({ datosArt, fncUpdChg, fncUpdSnd, fncImgChg, carga, sttU
     );
 }
 
-export function ListArt({ articulos, fncArtUpd, fncArtDel }) {
+export function ListArt({ articulos, fncArtUpd, fncArtDel, limitTxt }) {
     return (
-        <div>
+        <div className={styles.artGroup} >
             <div>
                 <h3>Listado de Productos</h3>
             </div>
@@ -59,7 +56,7 @@ export function ListArt({ articulos, fncArtUpd, fncArtDel }) {
                 <ul>
                     {articulos.map((prod) => (
                         <li key={prod.id}>
-                            -- {prod.id} - {prod.modelo} - ${prod.precio}
+                            {limitTxt(prod.modelo, 10)} - ${prod.precio}
                             <button onClick={() => fncArtUpd(prod)} >Actualizar</button>
                             <button onClick={() => fncArtDel(prod.docId)} >Eliminar</button>
                         </li>
